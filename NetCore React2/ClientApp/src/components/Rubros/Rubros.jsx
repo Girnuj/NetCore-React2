@@ -76,23 +76,20 @@ const Rubros = () => {
 
         let rubroID = $("#RubroID").val();
         let rubroNombre = $("#RubroNombre").val();
+        let url = '../../Rubros/BuscarRubros';
+        let data = { RubroID: rubroID, Descripcion: rubroNombre };
         //let rubroNombre2 = document.getElementById("RubroNombre").value;
 
         try {
 
             if (rubroNombre.trim() != "" && rubroNombre.trim() != null) {
 
-                $.ajax({
-                    type: "POST",
-                    url: '~/RubrosController/BuscarRubros',
-                    data: { RubroID: rubroID, Descripcion: rubroNombre },
-                    success: await function (resultado) {
-                        $("#exampleModal").modal("hide");
-                        CompletarTablaRubros();
-                    },
-                    error: (data) => console.log(data)
-
-                });
+                $.post(ulr, data).done(await function (resultado) {
+                    $("#exampleModal").modal("hide");
+                    CompletarTablaRubros();
+                }).fail((err) => console.log("Error en guardar", err))
+                   
+             
             } else {
                 $("#Error-RubroNombre").text("Debe Ingresar un Nombre");
             }
