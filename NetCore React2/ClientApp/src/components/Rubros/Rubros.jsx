@@ -8,15 +8,11 @@ const Rubros = () => {
 
         await VaciarFormulario();
 
-
-
         try {
-
-
 
             $.post({
                /* type: "POST",*/
-                url: '../../RubrosController/BuscarRubros',
+                url: '../../Rubros/BuscarRubros',
                 data: {},
                 success: async (listadoRubros) => {
                     $("#tbody-rubros").empty();
@@ -47,8 +43,6 @@ const Rubros = () => {
                             '</td>' +
                             '</tr>');
 
-
-
                     });
                 },
                 error: (data) => console.log(data)
@@ -56,7 +50,7 @@ const Rubros = () => {
             });
 
         } catch (err) {
-            console.log("Error CompletarTablaRubro", err)
+            console.log(`Error CompletarTablaRubro '${err}'`, this.err(err))
         }
 
     }
@@ -82,12 +76,12 @@ const Rubros = () => {
 
         try {
 
-            if (rubroNombre.trim() != "" && rubroNombre.trim() != null) {
+            if (rubroNombre.trim() !== "" && rubroNombre.trim() != null) {
 
-                $.post(ulr, data).done(await function (resultado) {
+                $.post(url, data).done(await function (resultado) {
                     $("#exampleModal").modal("hide");
                     CompletarTablaRubros();
-                }).fail((err) => console.log("Error en guardar", err))
+                }).fail((err) => console.log(`Error en guardar '${err}' `, this.err(err)))
                    
              
             } else {
@@ -101,8 +95,8 @@ const Rubros = () => {
 
     }
 
-    const AbrirModal = () => {
-     
+    const AbrirModal = (e) => {
+        //e.prevent.default;
         $("#Titulo-Modal-Rubro").text("Nuevo Rubro");
         $("#RubroID").val(0);
         $("#exampleModal").modal("show");
@@ -123,7 +117,7 @@ const Rubros = () => {
 
             <div>
 
-                <button onChange={AbrirModal } id="button"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-node-plus-fill" viewBox="0 0 16 16">
+                <button onChange={(e) => AbrirModal(e) } id="button"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-node-plus-fill" viewBox="0 0 16 16">
                     <path d="M11 13a5 5 0 1 0-4.975-5.5H4A1.5 1.5 0 0 0 2.5 6h-1A1.5 1.5 0 0 0 0 7.5v1A1.5 1.5 0 0 0 1.5 10h1A1.5 1.5 0 0 0 4 8.5h2.025A5 5 0 0 0 11 13zm.5-7.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2a.5.5 0 0 1 1 0z" />
                 </svg> Rubro </button>
             </div>

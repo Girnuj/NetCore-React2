@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetCore_React2.Data;
 using NetCore_React2.Models;
 
 namespace NetCore_React2.Controllers
+
 {
+    //[Authorize]
+    [ApiController]
+    [Route("[controller]")]
     public class RubrosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -13,7 +18,7 @@ namespace NetCore_React2.Controllers
         {
             _context = context;
         }
-        [HttpGet("Rubros/BuscarRubros")]
+        //[HttpGet("Rubros/BuscarRubros")]
 
         public JsonResult BuscarRubros()
         {
